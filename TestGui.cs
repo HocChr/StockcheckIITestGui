@@ -33,11 +33,11 @@ namespace StockcheckIITestGui
 
         private string RatingToString(StockCheckerII.StockEntity.Rate rate)
         {
-            if (rate == StockCheckerII.StockEntity.Rate.KAUFEN)
+            if (rate == StockCheckerII.StockEntity.Rate.A)
             {
                 return "A";
             }
-            if (rate == StockCheckerII.StockEntity.Rate.HALTEN)
+            if (rate == StockCheckerII.StockEntity.Rate.B)
             {
                 return "B";
             }
