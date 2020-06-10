@@ -1,11 +1,38 @@
 ﻿using System.Collections.Generic;
 using System;
+using System.IO;
 
 namespace StockcheckIITestGui
 {
-    public class TestGui : IGui
+    class Program
     {
-        public void SetStocks(List<StockCheckerII.StockEntity> stocks)
+        static void Main(string[] args)
+        {
+            var stockcheck = new StockCheckerII.Stockcheck(GetDatabaseFullPath());
+            Write(stockcheck.GetStocks());
+        }
+
+        static string GetCurrentDatabase()
+        {
+            string[] paths = { Directory.GetCurrentDirectory(), "database", "currentDatabase.txt" };
+            string fullPath = Path.Combine(paths);
+
+            string currentDatabase;
+            using (StreamReader sr = new StreamReader(fullPath))
+            {
+                currentDatabase = sr.ReadToEnd();
+            }
+            return currentDatabase + ".db";
+        }
+        static string GetDatabaseFullPath()
+        {
+            string currentDatabase = GetCurrentDatabase();
+            string[] paths = { Directory.GetCurrentDirectory(), "database", currentDatabase };
+            string fullPath = Path.Combine(paths);
+            return fullPath;
+        }
+
+        static void Write(List<StockCheckerII.StockEntity> stocks)
         {
             // Display header
             var header = String.Format("{0,-20}{1,8}{2,7}{3,18}{4,16}{5,15}{6,19}\n",
@@ -31,7 +58,7 @@ namespace StockcheckIITestGui
             }
         }
 
-        private string RatingToString(StockCheckerII.StockEntity.Rate rate)
+        static string RatingToString(StockCheckerII.StockEntity.Rate rate)
         {
             if (rate == StockCheckerII.StockEntity.Rate.A)
             {
